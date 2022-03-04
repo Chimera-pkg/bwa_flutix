@@ -1,33 +1,31 @@
 part of 'services.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-
 class AuthServices {
- static FirebaseAuth _auth = FirebaseAuth.instanceFor;
+  static auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
 
-  Static Future<SignInSignUpResult> signUp(
-    String email,
-    String password,
-    String name,
-    List<String> selectedGenres,
-    String selectedLanguage) async {
-  try {
-    auth.UserCredential result = await _auth.createUserWithEmailAndPassword(
-      email: email, password: password);
+  static Future<SignInSignUpResult> signUp(String email, String password,
+      String name, List<String> selectedGenres, String selectedLanguage) async {
+    try {
+      auth.UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
 
-    User user = result.user.convertToUser(
-      name: name,
-      selectedGenres: selectedGenres,
-      selectedLanguage: selectedLanguage,
+      User user = result.user.convertToUser(
+          name: name,
+          selectedGenres: selectedGenres,
+          SelectedLanguage: selectedLanguage);
 
-    await UserServices.updateUser(user);
+      await UserServices.updateUser(user);
 
-    return SignInSignUpResult(user: user);
-  } catch (e) {
-    return SignInSignUpResult(message: e.toString());fcfccfctcf g 
-  }   
+      return SignInSignUpResult(user: user);
+    } catch (e) {
+      return SignInSignUpResult(message: e.toString());
     }
-  
+  }
+}
 
+class SignInSignUpResult {
+  final User user;
+  final String message;
 
+  SignInSignUpResult({this.user, this.message});
 }

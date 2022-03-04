@@ -1,7 +1,5 @@
 part of 'models.dart';
 
-import 'dart:html';
-
 class User extends Equatable {
   final String id;
   final String email;
@@ -11,21 +9,14 @@ class User extends Equatable {
   final String selectedLanguage;
   final int balance;
 
-  User(user.id, 
-      this.email, 
-      {this.name, 
-      this.profilePicture, 
+  User(this.id, this.email,
+      {this.name,
+      this.profilePicture,
       this.balance,
-      this.selectedGenres, 
+      this.selectedGenres,
       this.selectedLanguage});
 
-      @Override 
-      List<Object> get props [
-        id,
-        email,
-        name,
-        profilePicture,
-        selectedLanguage,
-        balance
-      ]
+  @override
+  List<Object> get props =>
+      [id, email, name, profilePicture, selectedLanguage, balance];
 }
